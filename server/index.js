@@ -1,18 +1,20 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const apiRoutes = require("./routes/routes");
 const cors = require("cors");
 require("dotenv").config();
-
 const app = express();
 const port = 3000;
 
 app.use(
   cors({
-    origin: "http://localhost:4200",
-    credentials: true,
+    origin: "*",
   })
 );
+
 app.use(express.json());
+
+app.use("/api", apiRoutes);
 
 async function connectDB() {
   await mongoose.connect("mongodb://localhost:27017", {
